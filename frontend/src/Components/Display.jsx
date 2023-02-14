@@ -1,23 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function Display() {
-  const getPost = async () => {
-    const { success, existingPosts } = await axios.get(
-      "http://localhost:8000/posts"
-    );
+  const [posts, setPosts] = useState([]);
 
-    console.log({ success, existingPosts });
+  const getPost = async () => {
+    const { data } = await axios.get("http://localhost:8000/posts");
+
+    console.log(data.success);
+    if (data.success) {
+      console.log(data.posts);
+      setPosts(data.posts);
+    }
   };
 
   useEffect(() => {
     getPost();
-    console.log("test")
   }, []);
 
   return (
     <div>
-      <h1>hi</h1>
+      {posts.map((post) => {
+        return (
+          <div key={post._id}>
+            <h1>{post.topic}</h1>
+            <h2>{post.description}</h2>
+            <h3>{post.postCatogery}</h3>
+            <br />
+          </div>
+        );
+      })}
     </div>
   );
 }

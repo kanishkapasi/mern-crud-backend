@@ -11,7 +11,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "frontend": "cd frontend && yarn dev",
+    "dev": "concurrently -k \"yarn server\" \"yarn frontend\""
   },
   "author": "",
   "license": "ISC",
